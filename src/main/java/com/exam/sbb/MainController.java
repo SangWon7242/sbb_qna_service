@@ -93,4 +93,16 @@ public class MainController {
 
     resp.getWriter().append(a + b + "");
   }
+
+  @GetMapping("/mbti/{name}")
+  @ResponseBody
+  public String mbti(@PathVariable String name) {
+    return switch (name) {
+      case "홍길동" -> "INFP";
+      case "홍길순" -> "ENFP";
+      case "임꺽정" -> "ESFJ";
+      case "박상원" -> "INFJ";
+      default -> "모름";
+    };
+  }
 }
