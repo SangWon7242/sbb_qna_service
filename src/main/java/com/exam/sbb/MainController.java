@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -131,19 +133,35 @@ public class MainController {
     return "세션변수 %s의 값이 %s 입니다.".formatted(name, value);
   }
 
+  private List<Article> articles = new ArrayList<>();
+
   @GetMapping("/addArticle")
   @ResponseBody
   public String addArticle(String title, String body) {
     Article article = new Article(title, body);
 
+    articles.add(article);
+
     return "%d번 게시물이 생성되었습니다.".formatted(article.getId());
+  }
+
+  @GetMapping("/getArticle/{id}")
+  @ResponseBody
+  public Article getArticle(@PathVariable int id) {
+    Article article = articles // id가 1번인 게시물이 앞에서 3번째
+        .stream()
+        .filter(a -> a.getId() == id) // 1번
+        .findFirst()
+        .get();
+
+    return article;
   }
 }
 
 @AllArgsConstructor
+@Getter
 class Article {
   private static int lastId = 0;
-  @Getter
   private final int id;
   private final String title;
   private final String body;
