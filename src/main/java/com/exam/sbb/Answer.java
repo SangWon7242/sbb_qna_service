@@ -1,5 +1,6 @@
 package com.exam.sbb;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,5 +20,6 @@ public class Answer {
 
   private LocalDateTime createDate;
 
+  @ManyToOne
   private Question question;
 }
