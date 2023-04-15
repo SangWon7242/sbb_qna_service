@@ -111,7 +111,7 @@ public class QuestionRepositoryTests {
     // Pageable : 한 페이지에 몇 개의 아이템이 나와야 하는지 + 현재 몇 페이지인지
     Pageable pageable = PageRequest.of(0, lastSampleDataId);
     Page<Question> page = questionRepository.findAll(pageable);
-    
+
     assertThat(page.getTotalPages()).isEqualTo(1);
     System.out.println(page.getNumber());
   }
@@ -138,7 +138,7 @@ public class QuestionRepositoryTests {
 
   @Test
   void createManySampleData() {
-    boolean run = false;
+    boolean run = true;
 
     if(run == false) return;
 
