@@ -30,7 +30,7 @@ public class SecurityConfig {
 
   // 스프링 시스템에 객체를 등록한다.
   // @Configuration 라는 어노테이션을 가진 클래스에서만 사용가능하다.
-  @Bean
+  @Bean // @Bean : 스프링이 관리하는 객체
   PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
