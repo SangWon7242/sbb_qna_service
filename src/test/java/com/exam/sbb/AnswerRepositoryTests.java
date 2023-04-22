@@ -4,6 +4,7 @@ import com.exam.sbb.answer.Answer;
 import com.exam.sbb.answer.AnswerRepository;
 import com.exam.sbb.question.Question;
 import com.exam.sbb.question.QuestionRepository;
+import com.exam.sbb.user.SiteUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +51,13 @@ public class AnswerRepositoryTests {
 
     Answer a1 = new Answer();
     a1.setContent("sbb는 질문답변 게시판입니다.");
+    a1.setAuthor(new SiteUser(1L));
     a1.setCreateDate(LocalDateTime.now());
     q.addAnswer(a1);
 
     Answer a2 = new Answer();
     a2.setContent("네네 맞아요!!");
+    a2.setAuthor(new SiteUser(2L));
     a2.setCreateDate(LocalDateTime.now());
     q.addAnswer(a2);
 
