@@ -1,6 +1,7 @@
 package com.exam.sbb.question;
 
 import com.exam.sbb.answer.Answer;
+import com.exam.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,9 @@ public class Question {
   private String content;
 
   private LocalDateTime createDate;
+
+  @ManyToOne
+  private SiteUser author;
 
   @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
   private List<Answer> answerList = new ArrayList<>();
