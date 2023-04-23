@@ -38,8 +38,11 @@
   <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="POST" class="my-3">
     <div th:replace="~{form_errors :: formErrorsFragment}"></div>
 
-    <textarea name="content" rows="10" class="form-control"></textarea>
-    <button type="submit" class="btn btn-primary my-2">답변등록</button>
+    <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="10"></textarea>
+    <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="10"></textarea>
+
+    <button sec:authorize="isAnonymous()" disabled type="submit" class="btn btn-primary my-2">답변등록</button>
+    <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary my-2">답변등록</button>
   </form>
 </div>
 
