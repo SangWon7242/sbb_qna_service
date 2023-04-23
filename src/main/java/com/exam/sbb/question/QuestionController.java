@@ -1,6 +1,8 @@
 package com.exam.sbb.question;
 
 import com.exam.sbb.answer.AnswerForm;
+import com.exam.sbb.user.SiteUser;
+import com.exam.sbb.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Enumeration;
 import java.util.Iterator;
 
@@ -30,6 +33,7 @@ public class QuestionController {
 
   // @Autowired 필드 주입
   private final QuestionService questionService;
+  private final UserService userService;
 
 
   @GetMapping("/list")
@@ -63,13 +67,15 @@ public class QuestionController {
   }
 
   @PostMapping("/create")
-  public String questionCreate(Model model, @Valid QuestionForm questionForm, BindingResult bindingResult) {
+  public String questionCreate(Principal principal, Model model, @Valid QuestionForm questionForm, BindingResult bindingResult) {
 
     if(bindingResult.hasErrors()) {
       return "question_form";
     }
 
-    questionService.create(questionForm.getSubject(), questionForm.getContent());
+    SiteUser siteUser = userService.getUser(principal.getName());
+
+    questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
 
     return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
   }
