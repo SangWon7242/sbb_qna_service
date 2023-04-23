@@ -1,8 +1,10 @@
 package com.exam.sbb;
 
+import com.exam.sbb.answer.AnswerRepository;
 import com.exam.sbb.question.Question;
 import com.exam.sbb.question.QuestionRepository;
 import com.exam.sbb.user.SiteUser;
+import com.exam.sbb.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class QuestionRepositoryTests {
   @Autowired
+  private AnswerRepository answerRepository;
+  @Autowired
   private QuestionRepository questionRepository;
+
+  @Autowired
+  private UserRepository userRepository;
+
   private static long lastSampleDataId;
 
   @BeforeEach
@@ -52,13 +60,13 @@ public class QuestionRepositoryTests {
     lastSampleDataId = createSampleData(questionRepository);
   }
 
-  public static void clearData(QuestionRepository questionRepository) {
-    questionRepository.deleteAll();
-    questionRepository.truncateTable();
+  public static void clearData(UserRepository userRepository, AnswerRepository answerRepository,
+                               QuestionRepository questionRepository) {
+    UserServiceTests.clearData(userRepository, answerRepository, questionRepository);
   }
 
   private void clearData() {
-    clearData(questionRepository);
+    clearData(userRepository, answerRepository, questionRepository);
   }
 
   @Test
