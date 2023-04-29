@@ -1,19 +1,19 @@
 package com.exam.sbb.answer;
 
+import com.exam.sbb.DataNotFoundException;
 import com.exam.sbb.question.Question;
 import com.exam.sbb.question.QuestionService;
 import com.exam.sbb.user.SiteUser;
 import com.exam.sbb.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 
@@ -42,4 +42,29 @@ public class AnswerController {
 
     return "redirect:/question/detail/%d".formatted(id);
   }
+
+  @PreAuthorize("isAuthenticated()")
+  @GetMapping("/modify/{id}")
+  public String answerModify(AnswerForm answerForm, @PathVariable("id") Long id, Principal principal) {
+    Answer answer = answerService.getAnswer(id);
+
+    if(answer == null) {
+      throw new DataNotFoundException("데이터가 없습니다.");
+    }
+
+    if (!answer.getAuthor().getUsername().equals(principal.getName())) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+    }
+
+    answerForm.setContent(answer.getContent());
+    return "answer_form";
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @PostMapping("/modify/{id}")
+  @ResponseBody
+  public String answerModify(@Valid AnswerForm answerForm, BindingResult bindingResult, @PathVariable("id") Long id, Principal principal) {
+    return answerForm.getContent();
+  }
+
 }
