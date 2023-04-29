@@ -71,7 +71,7 @@ public class AnswerController {
 
     answerService.modify(answer, answerForm.getContent());
 
-    return "redirect:/question/detail/%d".formatted(answer.getQuestion().getId());
+    return "redirect:/question/detail/%d#answer_%d".formatted(answer.getQuestion().getId(), answer.getId());
   }
 
   @PreAuthorize("isAuthenticated()")
@@ -97,6 +97,6 @@ public class AnswerController {
 
     answerService.vote(answer, siteUser);
 
-    return "redirect:/question/detail/%d".formatted(answer.getQuestion().getId());
+    return "redirect:/question/detail/%d#answer_%d".formatted(answer.getQuestion().getId(), answer.getId());
   }
 }
