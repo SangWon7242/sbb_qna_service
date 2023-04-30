@@ -60,7 +60,7 @@ public class AnswerRepositoryTests {
     q.addAnswer(a1);
 
     Answer a2 = new Answer();
-    a2.setContent("네네 맞아요!!");
+    a2.setContent("sbb는 스프링부트 이용한 프로젝트입니다.");
     a2.setAuthor(new SiteUser(2L));
     a2.setCreateDate(LocalDateTime.now());
     q.addAnswer(a2);
