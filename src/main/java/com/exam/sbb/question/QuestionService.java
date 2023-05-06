@@ -18,9 +18,13 @@ import java.util.List;
 public class QuestionService {
   private final QuestionRepository questionRepository;
 
-  public Page<Question> getList(String kw, int page) {
+  public Page<Question> getList(String kw, int page, String sortCode) {
     List<Sort.Order> sorts = new ArrayList<>();
-    sorts.add(Sort.Order.desc("createDate"));
+
+    switch (sortCode) {
+      case "OLD" -> sorts.add(Sort.Order.asc("id")); // 오래된순
+      default -> sorts.add(Sort.Order.desc("id")); // 최신
+    }
 
     Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // 한 페이지에 10까지 가능
 
