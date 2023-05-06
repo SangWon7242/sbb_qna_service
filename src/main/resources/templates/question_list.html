@@ -53,10 +53,10 @@
   </table>
 
   <!-- 페이징처리 시작 -->
-  <div th:if="${!paging.isEmpty()}">
+  <div th:if="${!paging.isEmpty()}" th:with="queryStrBase = '?kw=' + ${param.kw}, queryStrBase = ${queryStrBase} + '&sortCode=' + ${param.sortCode}">
     <ul class="pagination justify-content-center">
       <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-        <a class="page-link" th:href="@{|?page=${paging.number - 1}&kw=${kw}&sortCode=${sortCode}|}">
+        <a class="page-link" th:href="@{|${queryStrBase}&page=${paging.number - 1}|}">
           <span>이전</span>
         </a>
       </li>
@@ -65,11 +65,11 @@
           th:if="${page >= paging.number-5 and page <= paging.number+5}"
           th:classappend="${page == paging.number} ? 'active'"
           class="page-item">
-        <a class="page-link" th:href="@{|?page=${page}&kw=${kw}&sortCode=${sortCode}|}" th:text="${page + 1}"></a>
+        <a class="page-link" th:href="@{|${queryStrBase}&page=${page}|}" th:text="${page + 1}"></a>
       </li>
 
       <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-        <a class="page-link" th:href="@{|?page=${paging.number + 1}&kw=${kw}&sortCode=${sortCode}|}" >
+        <a class="page-link" th:href="@{|${queryStrBase}&page=${paging.number + 1}|}" >
           <span>다음</span>
         </a>
       </li>
