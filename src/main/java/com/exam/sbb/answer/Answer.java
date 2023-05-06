@@ -3,10 +3,10 @@ package com.exam.sbb.answer;
 
 import com.exam.sbb.question.Question;
 import com.exam.sbb.user.SiteUser;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 

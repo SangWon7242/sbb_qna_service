@@ -1,11 +1,8 @@
 package com.exam.sbb.question;
 
-import com.exam.sbb.DataNotFoundException;
 import com.exam.sbb.answer.AnswerForm;
 import com.exam.sbb.user.SiteUser;
 import com.exam.sbb.user.UserService;
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -16,9 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Enumeration;
-import java.util.Iterator;
 
 @RequestMapping("/question")
 @Controller
@@ -48,6 +44,8 @@ public class QuestionController {
     // 미리 실행된 question_list.html에서
     // questionList라는 이름으로 questionList 변수를 사용할 수 있다.
     model.addAttribute("paging", paging);
+    model.addAttribute("kw", kw);
+
     return "question_list";
   }
 

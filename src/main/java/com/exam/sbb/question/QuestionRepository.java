@@ -34,5 +34,4 @@ public interface QuestionRepository extends JpaRepository<Question, Long>, Repos
   @Modifying
   @Query(value = "ALTER TABLE question AUTO_INCREMENT = 1", nativeQuery = true)
   void truncate();
-
 }

@@ -22,7 +22,7 @@ public class QuestionService {
     List<Sort.Order> sorts = new ArrayList<>();
     sorts.add(Sort.Order.desc("createDate"));
 
-    Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // 한 페이지에 10개까지 가능
+    Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // 한 페이지에 10까지 가능
 
     if(kw == null || kw.trim().length() == 0) {
       return questionRepository.findAll(pageable);
@@ -53,7 +53,7 @@ public class QuestionService {
   }
 
   public void delete(Question question) {
-    this.questionRepository.delete(question);
+    questionRepository.delete(question);
   }
 
   public void vote(Question question, SiteUser siteUser) {
