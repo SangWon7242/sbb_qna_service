@@ -39,11 +39,6 @@
 <th:block layout:fragment="script"></th:block>
 <!-- 자바스크립트 End -->
 
-<select value="2">
-  <option value="1">1</option>
-  <option value="2">2</option>
-</select>
-
 <!-- HTML이 정문 로딩 된 후, 실행되어야 하는 녀석(자바스크립트 코드)들은 밑에 두는게 좋다. -->
 <script>
   $('select[value]').each((index, node) => {
@@ -52,9 +47,6 @@
     $select.find(`option[value="${value}"]`).prop("selected", true);
   });
 </script>
-
-
-
 
 </body>
 </html>
