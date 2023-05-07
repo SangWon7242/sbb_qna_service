@@ -1,6 +1,6 @@
 package com.exam.sbb.question;
 
-import com.exam.sbb.DataNotFoundException;
+import com.exam.sbb.exception.DataNotFoundException;
 import com.exam.sbb.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,13 +1,12 @@
 package com.exam.sbb.answer;
 
-import com.exam.sbb.DataNotFoundException;
+import com.exam.sbb.exception.DataNotFoundException;
 import com.exam.sbb.question.Question;
 import com.exam.sbb.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

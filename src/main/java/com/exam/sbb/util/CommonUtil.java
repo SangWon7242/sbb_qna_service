@@ -1,4 +1,4 @@
-package com.exam.sbb;
+package com.exam.sbb.util;
 
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
