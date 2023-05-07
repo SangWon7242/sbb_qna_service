@@ -1,5 +1,6 @@
 package com.exam.sbb;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+  @Autowired
+  private OAuth2UserService oAuth2UserService;
   @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests().requestMatchers(
@@ -33,8 +36,14 @@ public class SecurityConfig {
         .loginPage("/user/login")
         .defaultSuccessUrl("/")
         .and()
-        .oauth2Login()
-        .and()
+        .oauth2Login(
+            oauth2Login -> oauth2Login
+                .loginPage("/usr/login")
+                .userInfoEndpoint(
+                    userInfoEndpoint -> userInfoEndpoint
+                        .userService(oAuth2UserService)
+                )
+        )
         .logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
         .logoutSuccessUrl("/")
