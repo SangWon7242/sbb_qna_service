@@ -32,6 +32,8 @@
         <th>제목</th>
         <th>글쓴이</th>
         <th>작성일시</th>
+        <th>조회</th>
+        <th>추천</th>
       </tr>
     </thead>
     <tbody>
@@ -48,6 +50,18 @@
         <span th:text="${question.author?.username}"></span>
       </td>
       <td th:text="${#temporals.format(question.createDate, 'yy-MM-dd HH:mm')}"></td>
+      <td>
+       <span class="text-danger small ms-2" th:text="${question.hitCount}"></span>
+      </td>
+      <td>
+        <span class="text-danger small ms-2" th:if="${#lists.size(question.answerList) > 0}"
+              th:text="${#lists.size(question.answerList)}">
+        </span>
+
+        <span class="text-danger small ms-2" th:if="${#lists.size(question.answerList) == 0}"
+              th:text="0">
+        </span>
+      </td>
     </tr>
     </tbody>
   </table>
